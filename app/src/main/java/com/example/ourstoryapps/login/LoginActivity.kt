@@ -1,7 +1,8 @@
-package com.example.ourstoryapps
+package com.example.ourstoryapps.login
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.ourstoryapps.R
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

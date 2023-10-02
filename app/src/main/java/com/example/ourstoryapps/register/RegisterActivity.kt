@@ -1,7 +1,8 @@
-package com.example.ourstoryapps
+package com.example.ourstoryapps.register
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.ourstoryapps.R
 
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
