@@ -1,5 +1,9 @@
 package com.example.ourstoryapps.data
 
-class akunModel {
+data class AkunModel (
+    val email: String,
+    val token : String,
+    val loginState: Boolean = false
+)
 
-}
+
