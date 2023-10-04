@@ -13,6 +13,9 @@
         android:theme="@style/Theme.OurStoryApps"
         tools:targetApi="31">
         <activity
+            android:name=".regis.RegisActivity"
+            android:exported="false" />
+        <activity
             android:name=".homepage.HomepageActivity"
             android:exported="false" />
         <activity
