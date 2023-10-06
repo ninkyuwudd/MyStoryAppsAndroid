@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.ourstoryapps.data.AkunRepository
-import com.example.ourstoryapps.homepage.HomepageActivity
 import com.example.ourstoryapps.homepage.HomepageViewModel
 import com.example.ourstoryapps.injection.Injection
 import com.example.ourstoryapps.login.LoginViewModel
@@ -14,7 +13,7 @@ class ViewModelFactory(private val repository: AkunRepository): ViewModelProvide
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-            modelClass.isAssignableFrom(HomepageActivity::class.java) -> {
+            modelClass.isAssignableFrom(HomepageViewModel::class.java) -> {
                 HomepageViewModel(repository) as T
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
