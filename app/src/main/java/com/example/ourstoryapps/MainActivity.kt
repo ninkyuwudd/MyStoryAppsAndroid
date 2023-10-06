@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.ourstoryapps.databinding.ActivityMainBinding
 import com.example.ourstoryapps.login.LoginActivity
+import com.example.ourstoryapps.regis.RegisActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,6 +17,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonContinue.setOnClickListener {
             val itn = Intent(this@MainActivity, LoginActivity::class.java)
+            startActivity(itn)
+        }
+
+        binding.buttonRegister.setOnClickListener {
+            val itn = Intent(this@MainActivity,RegisActivity::class.java)
             startActivity(itn)
         }
     }

@@ -71,11 +71,11 @@ class customPasswordField:AppCompatEditText,View.OnTouchListener {
                         return true
                     }
                     MotionEvent.ACTION_UP -> {
-                        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.baseline_remove_red_eye_24) as Drawable
-                        when {
-                            text != null -> text?.clear()
-                        }
-                        hideClearButton()
+                        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_hidden) as Drawable
+//                        when {
+//                            text != null -> text?.clear()
+//                        }
+//                        hideClearButton()
                         return true
                     }
                     else -> return false
