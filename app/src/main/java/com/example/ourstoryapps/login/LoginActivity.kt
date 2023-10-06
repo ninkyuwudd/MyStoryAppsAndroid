@@ -1,9 +1,11 @@
 package com.example.ourstoryapps.login
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -30,6 +32,18 @@ class LoginActivity : AppCompatActivity() {
 
         viewSetup()
         actionSetup()
+
+        setTheAnimation()
+    }
+
+
+    private fun setTheAnimation(){
+        ObjectAnimator.ofFloat(binding.titleLoginImage, View.TRANSLATION_X, -60f, 60f).apply {
+            duration = 6000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+
 
 
     }
