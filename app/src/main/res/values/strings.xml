@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">OurStoryApps</string>
     <string name="login_title">LOGIN</string>
+    <string name="register_title">Register</string>
 </resources>
