@@ -10,8 +10,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import com.example.ourstoryapps.R
-import com.example.ourstoryapps.ViewModelFactory
+import com.example.ourstoryapps.factory.ViewModelFactory
 import com.example.ourstoryapps.data.AkunModel
 import com.example.ourstoryapps.databinding.ActivityLoginBinding
 import com.example.ourstoryapps.homepage.HomepageActivity

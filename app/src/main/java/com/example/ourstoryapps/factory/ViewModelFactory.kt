@@ -1,4 +1,4 @@
-package com.example.ourstoryapps
+package com.example.ourstoryapps.factory
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

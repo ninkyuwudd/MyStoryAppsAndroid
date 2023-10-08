@@ -6,10 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import com.example.ourstoryapps.MainActivity
-import com.example.ourstoryapps.R
-import com.example.ourstoryapps.ViewModelFactory
+import com.example.ourstoryapps.factory.ViewModelFactory
 import com.example.ourstoryapps.databinding.ActivityHomepageBinding
-import com.example.ourstoryapps.databinding.ActivityMainBinding
 
 class HomepageActivity : AppCompatActivity() {
 
