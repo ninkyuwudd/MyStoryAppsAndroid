@@ -43,6 +43,16 @@ class LoginActivity : AppCompatActivity() {
         setTheAnimation()
 
 
+
+        viewModel.sessionGet().observe(this){
+            islogin:AkunModel ->
+            if(islogin.loginState){
+                val itn = Intent(this@LoginActivity,HomepageActivity::class.java)
+                startActivity(itn)
+            }
+        }
+
+
         val apiRepo = ApiRepository(ApiConfig.apiServiceGet())
         viewModelApi = ViewModelProvider(this, AuthViewModelFactory(apiRepo))[AuthViewModel::class.java]
 
@@ -57,6 +67,8 @@ class LoginActivity : AppCompatActivity() {
                 val error = response.errorBody()
             }
         })
+
+
 
 
     }
