@@ -35,6 +35,8 @@ class ViewModelFactory(private val repository: AkunRepository): ViewModelProvide
             }
             return INSTANCE as ViewModelFactory
         }
+
+
     }
 
 }

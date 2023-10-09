@@ -5,14 +5,20 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import com.example.ourstoryapps.factory.ViewModelFactory
 import com.example.ourstoryapps.data.AkunModel
+import com.example.ourstoryapps.data.AuthViewModel
+import com.example.ourstoryapps.data.api.ApiConfig
+import com.example.ourstoryapps.data.api.ApiRepository
 import com.example.ourstoryapps.databinding.ActivityLoginBinding
+import com.example.ourstoryapps.factory.AuthViewModelFactory
 import com.example.ourstoryapps.homepage.HomepageActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -20,6 +26,8 @@ class LoginActivity : AppCompatActivity() {
     private val viewModel by viewModels<LoginViewModel> {
         ViewModelFactory.getInstance(this)
     }
+
+    private lateinit var viewModelApi: AuthViewModel
 
     private lateinit var binding: ActivityLoginBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +41,24 @@ class LoginActivity : AppCompatActivity() {
         actionSetup()
 
         setTheAnimation()
+
+
+        val apiRepo = ApiRepository(ApiConfig.apiServiceGet())
+        viewModelApi = ViewModelProvider(this, AuthViewModelFactory(apiRepo))[AuthViewModel::class.java]
+
+
+        viewModelApi.liveDataResponse.observe(this,{
+                response ->
+
+            if (response.isSuccessful){
+                val body = response.body()
+                Log.d("sscess","success response cuy")
+            }else{
+                val error = response.errorBody()
+            }
+        })
+
+
     }
 
 
@@ -65,6 +91,7 @@ class LoginActivity : AppCompatActivity() {
         binding.lgnButton.setOnClickListener {
             val email = binding.edLoginEmail.text.toString()
             viewModel.sessionSave(AkunModel(email,"the_token"))
+            viewModelApi.login("wudd404@gmail.com","12345678")
             AlertDialog.Builder(this).apply {
                 setTitle("Nice")
                 setMessage("Login Successfully!")

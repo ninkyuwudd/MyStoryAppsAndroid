@@ -1,5 +1,6 @@
 package com.example.ourstoryapps.data.api
 
+import com.example.ourstoryapps.data.model.ResponseLogin
 import com.example.ourstoryapps.data.model.ResponseRegister
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -19,4 +20,12 @@ interface ApiService {
         @Field("email") email: String,
         @Field("password") password: String
     ): Response<ResponseRegister>
+
+
+    @FormUrlEncoded
+    @POST("login")
+    suspend fun login(
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): Response<ResponseLogin>
 }
