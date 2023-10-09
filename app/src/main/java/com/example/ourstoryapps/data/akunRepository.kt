@@ -1,5 +1,6 @@
 package com.example.ourstoryapps.data
 
+import com.example.ourstoryapps.data.api.ApiService
 import kotlinx.coroutines.flow.Flow
 
 class AkunRepository private constructor(
@@ -22,6 +23,7 @@ class AkunRepository private constructor(
         @Volatile
         private var instance : AkunRepository? = null
         fun instanceGet(
+            apiService: ApiService,
             akunPreference: AkunPreference
         ): AkunRepository =
             instance ?: synchronized(this){
