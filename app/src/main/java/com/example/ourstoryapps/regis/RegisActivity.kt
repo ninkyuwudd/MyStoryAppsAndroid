@@ -17,6 +17,10 @@ import com.example.ourstoryapps.login.LoginViewModel
 
 class RegisActivity : AppCompatActivity() {
 
+    private val viewModelLogin by viewModels<LoginViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
+
 
     private lateinit var viewModel: AuthViewModel
 
@@ -26,7 +30,7 @@ class RegisActivity : AppCompatActivity() {
         binding = ActivityRegisBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val apiRepo = ApiRepository(ApiConfig.apiServiceGet())
+        val apiRepo = ApiRepository(ApiConfig.apiServiceGet(viewModelLogin.sessionGet().value?.token))
         viewModel = ViewModelProvider(this, AuthViewModelFactory(apiRepo))[AuthViewModel::class.java]
 
 

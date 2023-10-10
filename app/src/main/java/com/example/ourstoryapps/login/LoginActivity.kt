@@ -17,15 +17,19 @@ import com.example.ourstoryapps.data.AkunModel
 import com.example.ourstoryapps.data.AuthViewModel
 import com.example.ourstoryapps.data.api.ApiConfig
 import com.example.ourstoryapps.data.api.ApiRepository
+import com.example.ourstoryapps.data.model.ResponseLogin
 import com.example.ourstoryapps.databinding.ActivityLoginBinding
 import com.example.ourstoryapps.factory.AuthViewModelFactory
 import com.example.ourstoryapps.homepage.HomepageActivity
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
     private val viewModel by viewModels<LoginViewModel> {
         ViewModelFactory.getInstance(this)
     }
+
+
 
     private lateinit var viewModelApi: AuthViewModel
 
@@ -35,8 +39,6 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-
         viewSetup()
         actionSetup()
 
@@ -44,18 +46,30 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-        viewModel.sessionGet().observe(this){
-            islogin:AkunModel ->
-            if(islogin.loginState){
+//        viewModel.sessionGet().observe(this){
+//            islogin:AkunModel ->
+//            if(islogin.loginState){
+//                val itn = Intent(this@LoginActivity,HomepageActivity::class.java)
+//                startActivity(itn)
+//            }
+//        }
+
+
+
+        val apiRepo = ApiRepository(ApiConfig.apiServiceGet(viewModel.sessionGet().value?.token))
+        viewModelApi = ViewModelProvider(this, AuthViewModelFactory(apiRepo))[AuthViewModel::class.java]
+
+        viewModelApi.liveDataResponseLogin.observe(this){
+            getToken:Response<ResponseLogin> ->
+            if(getToken.body()?.loginResult?.token != null){
+                val email = "wudd404@gmail.com"
+                val token = getToken.body()!!.loginResult!!.token
+
+                viewModel.sessionSave(AkunModel(email,token.toString()))
                 val itn = Intent(this@LoginActivity,HomepageActivity::class.java)
                 startActivity(itn)
             }
         }
-
-
-        val apiRepo = ApiRepository(ApiConfig.apiServiceGet())
-        viewModelApi = ViewModelProvider(this, AuthViewModelFactory(apiRepo))[AuthViewModel::class.java]
-
 
         viewModelApi.liveDataResponse.observe(this,{
                 response ->
@@ -63,6 +77,7 @@ class LoginActivity : AppCompatActivity() {
             if (response.isSuccessful){
                 val body = response.body()
                 Log.d("sscess","success response cuy")
+
             }else{
                 val error = response.errorBody()
             }
@@ -102,16 +117,23 @@ class LoginActivity : AppCompatActivity() {
     private fun actionSetup(){
         binding.lgnButton.setOnClickListener {
             val email = binding.edLoginEmail.text.toString()
-            viewModel.sessionSave(AkunModel(email,"the_token"))
+
             viewModelApi.login("wudd404@gmail.com","12345678")
+
+            if (viewModelApi.liveDataResponseLogin.value?.body()?.loginResult?.token != null){
+                viewModel.sessionSave(AkunModel(email,viewModelApi.liveDataResponseLogin.value!!.body()!!.loginResult!!.token!!))
+            }else{
+                Log.d("condition","TOken kosong bro")
+                viewModel.sessionSave(AkunModel(email,"token_nya"))
+            }
             AlertDialog.Builder(this).apply {
                 setTitle("Nice")
                 setMessage("Login Successfully!")
                 setPositiveButton("Next"){
                     _,_ ->
-                    val itn = Intent(this@LoginActivity,HomepageActivity::class.java)
-                    itn.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(itn)
+//                    val itn = Intent(this@LoginActivity,HomepageActivity::class.java)
+//                    itn.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//                    startActivity(itn)
                     finish()
                 }
                 create()

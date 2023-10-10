@@ -20,8 +20,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
 
-        val apiRepo = ApiRepository(ApiConfig.apiServiceGet())
-        viewModel = ViewModelProvider(this, AuthViewModelFactory(apiRepo))[AuthViewModel::class.java]
+
 
 
 
