@@ -4,11 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ourstoryapps.MainActivity
+import com.example.ourstoryapps.R
 import com.example.ourstoryapps.data.AuthViewModel
 import com.example.ourstoryapps.data.api.ApiConfig
 import com.example.ourstoryapps.data.api.ApiRepository
@@ -16,6 +18,7 @@ import com.example.ourstoryapps.data.model.ListStoryItem
 import com.example.ourstoryapps.factory.ViewModelFactory
 import com.example.ourstoryapps.databinding.ActivityHomepageBinding
 import com.example.ourstoryapps.factory.AuthViewModelFactory
+
 
 class HomepageActivity : AppCompatActivity() {
 
@@ -33,6 +36,8 @@ class HomepageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomepageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
 //        val layoutManager = LinearLayoutManager(this)
 //        binding.rvListStory.layoutManager = layoutManager
@@ -73,15 +78,27 @@ class HomepageActivity : AppCompatActivity() {
 
     private fun logoutBtnFunction(){
 
-        binding.testbtn.setOnClickListener {
-            Log.d("getToken",
-                viewModelApi.liveDataResponseLogin.value!!.body()!!.loginResult!!.token!!
-            )
+        binding.appbarid.setOnMenuItemClickListener{
+            menuitem ->
+            when(menuitem.itemId){
+                R.id.lgIcon -> {
+                    Log.d("testing","clicked lgout")
+                    viewModel.logOut()
+                    true
+                }
+                else -> false
+            }
         }
 
-        binding.logoutbtn.setOnClickListener {
-            Log.d("testing","clicked lgout")
-            viewModel.logOut()
-        }
+//        binding.testbtn.setOnClickListener {
+//            Log.d("getToken",
+//                viewModelApi.liveDataResponseLogin.value!!.body()!!.loginResult!!.token!!
+//            )
+//        }
+//
+//        binding.logoutbtn.setOnClickListener {
+//            Log.d("testing","clicked lgout")
+//            viewModel.logOut()
+//        }
     }
 }
