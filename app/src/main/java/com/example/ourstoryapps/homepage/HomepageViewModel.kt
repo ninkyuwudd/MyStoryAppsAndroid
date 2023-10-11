@@ -24,14 +24,14 @@ class HomepageViewModel(private val repository: AkunRepository): ViewModel() {
 
 
     fun fetchDataStory(token: String){
-        val client = ApiConfig.apiServiceGet(token).getStories(token)
+        val client = ApiConfig.apiServiceGet(token).getStories()
 
         client.enqueue(object : retrofit2.Callback<ResponseStory>{
             override fun onResponse(call: Call<ResponseStory>, response: Response<ResponseStory>) {
                 if(response.isSuccessful){
                     _listStory.value = response.body()?.listStory
                 }else{
-                    Log.e(ContentValues.TAG,"onFilure ${response.message()}")
+                    Log.e(ContentValues.TAG,"onFilurecuy ${response.message()}")
                 }
             }
 

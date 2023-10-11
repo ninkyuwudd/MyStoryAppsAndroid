@@ -11,13 +11,17 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.ourstoryapps.MainActivity
 import com.example.ourstoryapps.R
+import com.example.ourstoryapps.data.AkunModel
 import com.example.ourstoryapps.data.AuthViewModel
 import com.example.ourstoryapps.data.api.ApiConfig
 import com.example.ourstoryapps.data.api.ApiRepository
 import com.example.ourstoryapps.data.model.ListStoryItem
+import com.example.ourstoryapps.data.model.ResponseLogin
 import com.example.ourstoryapps.factory.ViewModelFactory
 import com.example.ourstoryapps.databinding.ActivityHomepageBinding
 import com.example.ourstoryapps.factory.AuthViewModelFactory
+import com.example.ourstoryapps.login.LoginViewModel
+import retrofit2.Response
 
 
 class HomepageActivity : AppCompatActivity() {
@@ -25,8 +29,13 @@ class HomepageActivity : AppCompatActivity() {
     private val viewModel by viewModels<HomepageViewModel> {
         ViewModelFactory.getInstance(this)
     }
+    private val viewModelToken by viewModels<LoginViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
 
     private lateinit var viewModelApi: AuthViewModel
+
+    private lateinit var thetoken : String
 
 
     private lateinit var storyAdapter : HomePageAdapter
@@ -39,13 +48,24 @@ class HomepageActivity : AppCompatActivity() {
 
 
 
-//        val layoutManager = LinearLayoutManager(this)
-//        binding.rvListStory.layoutManager = layoutManager
-//
-//        val itemDecorator = DividerItemDecoration(this,layoutManager.orientation)
-//        binding.rvListStory.addItemDecoration(itemDecorator)
-//        storyAdapter = HomePageAdapter()
-//        binding.rvListStory.adapter = storyAdapter
+        val layoutManager = LinearLayoutManager(this)
+        binding.rvListStory.layoutManager = layoutManager
+
+        val itemDecorator = DividerItemDecoration(this,layoutManager.orientation)
+        binding.rvListStory.addItemDecoration(itemDecorator)
+        storyAdapter = HomePageAdapter()
+        binding.rvListStory.adapter = storyAdapter
+
+
+
+
+        viewModelToken.sessionGet().observe(this){
+                islogin:AkunModel ->
+            if(islogin.token != ""){
+                viewModel.fetchDataStory("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLU1RUDZ4a2R5RzhHRERqRFEiLCJpYXQiOjE2OTY5ODY5MTF9.mApsldOsgKEcobfz1FfZUuaiJV39we4_J9LdTJesg4o")
+            }
+
+        }
 
 
 
@@ -58,25 +78,29 @@ class HomepageActivity : AppCompatActivity() {
         }
 //
 //
-//        viewModel.fetchDataStory(viewModel.sessionGet().value!!.token)
 
-//        viewModel.listOurStory.observe(this){
-//                username -> setStoryData(username)
-//        }
+
+        viewModel.listOurStory.observe(this){
+                username -> setStoryData(username)
+        }
+
         val apiRepo = ApiRepository(ApiConfig.apiServiceGet(viewModel.sessionGet().value?.token))
         viewModelApi = ViewModelProvider(this, AuthViewModelFactory(apiRepo))[AuthViewModel::class.java]
         logoutBtnFunction()
     }
 
-//    private fun setStoryData(usernameData:List<ListStoryItem>){
-//        val adapter =HomePageAdapter()
-//        adapter.submitList(usernameData)
-//        binding.rvListStory.adapter = adapter
-//    }
+    private fun setStoryData(usernameData:List<ListStoryItem>){
+        val adapter =HomePageAdapter()
+        adapter.submitList(usernameData)
+        binding.rvListStory.adapter = adapter
+    }
 
 
 
     private fun logoutBtnFunction(){
+
+
+
 
         binding.appbarid.setOnMenuItemClickListener{
             menuitem ->
@@ -92,7 +116,7 @@ class HomepageActivity : AppCompatActivity() {
 
 //        binding.testbtn.setOnClickListener {
 //            Log.d("getToken",
-//                viewModelApi.liveDataResponseLogin.value!!.body()!!.loginResult!!.token!!
+//                thetoken
 //            )
 //        }
 //

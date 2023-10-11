@@ -46,13 +46,14 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-//        viewModel.sessionGet().observe(this){
-//            islogin:AkunModel ->
-//            if(islogin.loginState){
-//                val itn = Intent(this@LoginActivity,HomepageActivity::class.java)
-//                startActivity(itn)
-//            }
-//        }
+        viewModel.sessionGet().observe(this){
+            islogin:AkunModel ->
+            if(islogin.loginState && islogin.token != ""){
+                Log.d("sessionGet",islogin.token)
+                val itn = Intent(this@LoginActivity,HomepageActivity::class.java)
+                startActivity(itn)
+            }
+        }
 
 
 
@@ -64,7 +65,7 @@ class LoginActivity : AppCompatActivity() {
             if(getToken.body()?.loginResult?.token != null){
                 val email = "wudd404@gmail.com"
                 val token = getToken.body()!!.loginResult!!.token
-
+                Log.d("condition",token.toString())
                 viewModel.sessionSave(AkunModel(email,token.toString()))
                 val itn = Intent(this@LoginActivity,HomepageActivity::class.java)
                 startActivity(itn)
@@ -124,7 +125,7 @@ class LoginActivity : AppCompatActivity() {
                 viewModel.sessionSave(AkunModel(email,viewModelApi.liveDataResponseLogin.value!!.body()!!.loginResult!!.token!!))
             }else{
                 Log.d("condition","TOken kosong bro")
-                viewModel.sessionSave(AkunModel(email,"token_nya"))
+                viewModel.sessionSave(AkunModel(email,""))
             }
             AlertDialog.Builder(this).apply {
                 setTitle("Nice")
