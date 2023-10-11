@@ -32,6 +32,10 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.backBtn.setOnClickListener {
+            onBackPressed()
+        }
+
         val id = intent.getStringExtra(EXTRA_ID)
 
 
