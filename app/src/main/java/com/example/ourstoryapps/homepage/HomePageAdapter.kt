@@ -1,12 +1,15 @@
 package com.example.ourstoryapps.homepage
 
+import android.content.Intent
 import android.os.Parcel
 import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.ourstoryapps.data.detail.DetailActivity
 import com.example.ourstoryapps.data.model.ListStoryItem
 import com.example.ourstoryapps.databinding.CardForItemBinding
 import com.example.ourstoryapps.homepage.HomePageAdapter.TheViewHolder
@@ -32,14 +35,14 @@ class HomePageAdapter : ListAdapter<ListStoryItem, TheViewHolder>(DIFF_CALLBACK)
             binding.deskCard.text = "${review.description}"
 //            binding.itemText.text = "${review.login}"
             Picasso.get().load(review.photoUrl).into(binding.imageCard)
-//
-//            binding.itemCard.setOnClickListener{
-//                val intent = Intent(ctx,DetailAccount::class.java)
-//                intent.putExtra(DetailAccount.EXTRA_TITLE,review.login)
-//                intent.putExtra(DetailAccount.EXTRA_IMG_ACCOUNT,review.avatarUrl)
-//                ctx.startActivity(intent)
-//
-//            }
+
+            binding.cardItemStory.setOnClickListener {
+
+                val intent = Intent(ctx,DetailActivity::class.java)
+                intent.putExtra(DetailActivity.EXTRA_ID,review.id)
+                ctx.startActivity(intent)
+            }
+
         }
     }
 

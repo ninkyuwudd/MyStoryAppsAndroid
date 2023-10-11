@@ -62,7 +62,7 @@ class HomepageActivity : AppCompatActivity() {
         viewModelToken.sessionGet().observe(this){
                 islogin:AkunModel ->
             if(islogin.token != ""){
-                viewModel.fetchDataStory("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLU1RUDZ4a2R5RzhHRERqRFEiLCJpYXQiOjE2OTY5ODY5MTF9.mApsldOsgKEcobfz1FfZUuaiJV39we4_J9LdTJesg4o")
+                viewModel.fetchDataStory(islogin.token)
             }
 
         }
