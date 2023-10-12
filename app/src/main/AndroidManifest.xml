@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
 
     <application
         android:allowBackup="true"
@@ -15,19 +18,22 @@
         android:theme="@style/Theme.OurStoryApps"
         tools:targetApi="31">
         <activity
+            android:name="com.example.ui.story.AddStoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".data.detail.DetailActivity"
             android:exported="false" />
         <activity
-            android:name=".regis.RegisActivity"
+            android:name="com.example.ui.regis.RegisActivity"
             android:exported="false" />
         <activity
-            android:name=".homepage.HomepageActivity"
+            android:name="com.example.ui.homepage.HomepageActivity"
             android:exported="false" />
         <activity
-            android:name=".register.RegisterActivity"
+            android:name="com.example.ui.register.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".login.LoginActivity"
+            android:name="com.example.ui.login.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -38,6 +44,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+
+
+
     </application>
 
 </manifest>

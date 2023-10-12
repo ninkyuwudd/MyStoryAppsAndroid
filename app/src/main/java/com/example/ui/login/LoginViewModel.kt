@@ -1,4 +1,4 @@
-package com.example.ourstoryapps.login
+package com.example.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

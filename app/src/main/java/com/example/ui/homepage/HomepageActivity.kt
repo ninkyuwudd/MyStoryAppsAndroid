@@ -1,4 +1,4 @@
-package com.example.ourstoryapps.homepage
+package com.example.ui.homepage
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -17,10 +17,12 @@ import com.example.ourstoryapps.data.api.ApiConfig
 import com.example.ourstoryapps.data.api.ApiRepository
 import com.example.ourstoryapps.data.model.ListStoryItem
 import com.example.ourstoryapps.data.model.ResponseLogin
+import com.example.ourstoryapps.databinding.ActivityAddStoryBinding
 import com.example.ourstoryapps.factory.ViewModelFactory
 import com.example.ourstoryapps.databinding.ActivityHomepageBinding
 import com.example.ourstoryapps.factory.AuthViewModelFactory
-import com.example.ourstoryapps.login.LoginViewModel
+import com.example.ui.login.LoginViewModel
+import com.example.ui.story.AddStoryActivity
 import retrofit2.Response
 
 
@@ -56,6 +58,10 @@ class HomepageActivity : AppCompatActivity() {
         storyAdapter = HomePageAdapter()
         binding.rvListStory.adapter = storyAdapter
 
+        binding.addBtn.setOnClickListener{
+            val itn = Intent(this@HomepageActivity,AddStoryActivity::class.java)
+            startActivity(itn)
+        }
 
 
 
@@ -90,7 +96,7 @@ class HomepageActivity : AppCompatActivity() {
     }
 
     private fun setStoryData(usernameData:List<ListStoryItem>){
-        val adapter =HomePageAdapter()
+        val adapter = HomePageAdapter()
         adapter.submitList(usernameData)
         binding.rvListStory.adapter = adapter
     }

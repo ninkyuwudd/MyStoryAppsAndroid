@@ -10,7 +10,7 @@ import com.example.ourstoryapps.data.AkunModel
 import com.example.ourstoryapps.data.model.Story
 import com.example.ourstoryapps.databinding.ActivityDetailBinding
 import com.example.ourstoryapps.factory.ViewModelFactory
-import com.example.ourstoryapps.login.LoginViewModel
+import com.example.ui.login.LoginViewModel
 import com.squareup.picasso.Picasso
 
 class DetailActivity : AppCompatActivity() {

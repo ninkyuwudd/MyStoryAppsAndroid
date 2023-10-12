@@ -4,9 +4,9 @@ import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.ourstoryapps.data.AkunRepository
-import com.example.ourstoryapps.homepage.HomepageViewModel
+import com.example.ui.homepage.HomepageViewModel
 import com.example.ourstoryapps.injection.Injection
-import com.example.ourstoryapps.login.LoginViewModel
+import com.example.ui.login.LoginViewModel
 
 class ViewModelFactory(private val repository: AkunRepository): ViewModelProvider.NewInstanceFactory() {
 

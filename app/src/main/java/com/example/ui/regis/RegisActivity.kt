@@ -1,4 +1,4 @@
-package com.example.ourstoryapps.regis
+package com.example.ui.regis
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,7 +13,7 @@ import com.example.ourstoryapps.data.api.ApiRepository
 import com.example.ourstoryapps.databinding.ActivityRegisBinding
 import com.example.ourstoryapps.factory.AuthViewModelFactory
 import com.example.ourstoryapps.factory.ViewModelFactory
-import com.example.ourstoryapps.login.LoginViewModel
+import com.example.ui.login.LoginViewModel
 
 class RegisActivity : AppCompatActivity() {
 

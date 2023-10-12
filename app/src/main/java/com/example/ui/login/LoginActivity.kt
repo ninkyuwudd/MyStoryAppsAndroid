@@ -1,4 +1,4 @@
-package com.example.ourstoryapps.login
+package com.example.ui.login
 
 import android.animation.ObjectAnimator
 import android.content.Intent
@@ -20,7 +20,7 @@ import com.example.ourstoryapps.data.api.ApiRepository
 import com.example.ourstoryapps.data.model.ResponseLogin
 import com.example.ourstoryapps.databinding.ActivityLoginBinding
 import com.example.ourstoryapps.factory.AuthViewModelFactory
-import com.example.ourstoryapps.homepage.HomepageActivity
+import com.example.ui.homepage.HomepageActivity
 import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
             islogin:AkunModel ->
             if(islogin.loginState && islogin.token != ""){
                 Log.d("sessionGet",islogin.token)
-                val itn = Intent(this@LoginActivity,HomepageActivity::class.java)
+                val itn = Intent(this@LoginActivity, HomepageActivity::class.java)
                 startActivity(itn)
             }
         }
@@ -67,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
                 val token = getToken.body()!!.loginResult!!.token
                 Log.d("condition",token.toString())
                 viewModel.sessionSave(AkunModel(email,token.toString()))
-                val itn = Intent(this@LoginActivity,HomepageActivity::class.java)
+                val itn = Intent(this@LoginActivity, HomepageActivity::class.java)
                 startActivity(itn)
             }
         }

@@ -1,4 +1,4 @@
-package com.example.ourstoryapps.register
+package com.example.ui.register
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

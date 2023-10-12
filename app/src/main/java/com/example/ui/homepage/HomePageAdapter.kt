@@ -1,4 +1,4 @@
-package com.example.ourstoryapps.homepage
+package com.example.ui.homepage
 
 import android.content.Intent
 import android.os.Parcel
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.ourstoryapps.data.detail.DetailActivity
 import com.example.ourstoryapps.data.model.ListStoryItem
 import com.example.ourstoryapps.databinding.CardForItemBinding
-import com.example.ourstoryapps.homepage.HomePageAdapter.TheViewHolder
+import com.example.ui.homepage.HomePageAdapter.TheViewHolder
 import com.squareup.picasso.Picasso
 
 class HomePageAdapter : ListAdapter<ListStoryItem, TheViewHolder>(DIFF_CALLBACK) {

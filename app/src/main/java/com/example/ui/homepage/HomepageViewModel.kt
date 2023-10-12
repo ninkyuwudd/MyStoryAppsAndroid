@@ -1,4 +1,4 @@
-package com.example.ourstoryapps.homepage
+package com.example.ui.homepage
 
 import android.content.ContentValues
 import android.util.Log
