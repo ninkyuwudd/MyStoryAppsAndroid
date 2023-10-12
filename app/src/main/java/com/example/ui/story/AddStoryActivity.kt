@@ -1,24 +1,80 @@
 package com.example.ui.story
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.ourstoryapps.R
+import com.example.ourstoryapps.data.AkunModel
+import com.example.ourstoryapps.data.api.ApiConfig
+import com.example.ourstoryapps.data.api.ApiRepository
+import com.example.ourstoryapps.data.api.ApiService
+import com.example.ourstoryapps.data.model.ResponseStoryUp
 import com.example.ourstoryapps.databinding.ActivityAddStoryBinding
+import com.example.ourstoryapps.factory.ViewModelFactory
+import com.example.ui.login.LoginViewModel
 import com.example.utils.getImageUri
+import com.example.utils.uriToFile
+import com.google.gson.Gson
+import kotlinx.coroutines.launch
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.HttpException
+import retrofit2.awaitResponse
 
 class AddStoryActivity : AppCompatActivity() {
 
+    private val viewModelLogin by viewModels<LoginViewModel> {
+        ViewModelFactory.getInstance(this)
+    }
+
     private lateinit var binding: ActivityAddStoryBinding
 
+//    private var currentImageUri: Uri? = null
+
     private var imgUri: Uri? = null
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                Toast.makeText(this, "Permission request granted", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Permission request denied", Toast.LENGTH_LONG).show()
+            }
+        }
+
+    private fun allPermissionsGranted() =
+        ContextCompat.checkSelfPermission(
+            this,
+            REQUIRED_PERMISSION
+        ) == PackageManager.PERMISSION_GRANTED
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        var apiRepo = ApiConfig.apiServiceGet(viewModelLogin.sessionGet().value?.token)
+        viewModelLogin.sessionGet().observe(this){
+            data:AkunModel ->
+            apiRepo = ApiConfig.apiServiceGet(data.token)
+
+        }
 
 
 
@@ -26,6 +82,8 @@ class AddStoryActivity : AppCompatActivity() {
         binding.btnOpenGallery.setOnClickListener { galleryStart() }
 
         binding.btnOpenCamera.setOnClickListener {cameraStart()}
+
+        binding.btnUpload.setOnClickListener { uploadImage(token = apiRepo) }
 
 
     }
@@ -65,5 +123,52 @@ class AddStoryActivity : AppCompatActivity() {
             Log.d("Image URI", "showImage: $it")
             binding.imgPreview.setImageURI(it)
         }
+    }
+
+
+
+    private fun uploadImage(token:ApiService) {
+        imgUri?.let { uri ->
+            val imageFile = uriToFile(uri, this)
+            Log.d("Image File", "showImage: ${imageFile.path}")
+            val description = "Ini adalah deksripsi gambar"
+
+            showLoading(true)
+
+            val requestBody = description.toRequestBody("text/plain".toMediaType())
+            val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
+            val multipartBody = MultipartBody.Part.createFormData(
+                "photo",
+                imageFile.name,
+                requestImageFile
+            )
+
+            lifecycleScope.launch {
+                try {
+                    val successResponse = token.uploadImage(multipartBody,requestBody).awaitResponse().message()
+                    showToast(successResponse)
+                    showLoading(false)
+                } catch (e: HttpException) {
+                    val errorBody = e.response()?.errorBody()?.string()
+                    val errorResponse = Gson().fromJson(errorBody, ResponseStoryUp::class.java)
+                    Log.d("cek error","ada error")
+                    showToast(errorResponse.message.toString())
+
+                    showLoading(false)
+                }
+            }
+
+        } ?: showToast(getString(R.string.empty_image_warning))
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    companion object {
+        private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
     }
 }

@@ -1,9 +1,11 @@
 package com.example.ourstoryapps.data.api
 
+
 import com.example.ourstoryapps.data.model.ResponseDetailStory
 import com.example.ourstoryapps.data.model.ResponseLogin
 import com.example.ourstoryapps.data.model.ResponseRegister
 import com.example.ourstoryapps.data.model.ResponseStory
+import com.example.ourstoryapps.data.model.ResponseStoryUp
 import com.example.ourstoryapps.data.model.Story
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -46,5 +48,14 @@ interface ApiService {
     fun getDataStories(
         @Path("id") id:String
     ): Call<ResponseDetailStory>
+
+
+
+    @Multipart
+    @POST("stories")
+    fun uploadImage(
+        @Part file: MultipartBody.Part,
+        @Part("description") description: RequestBody,
+    ): Call<ResponseStoryUp>
 
 }
