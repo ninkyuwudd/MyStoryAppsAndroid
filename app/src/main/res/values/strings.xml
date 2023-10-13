@@ -6,4 +6,5 @@
     <string name="add_data">add data</string>
     <string name="empty_image_warning">the image is empty!</string>
     <string name="desk_hint">masukkan deskripsi gambar</string>
+    <string name="error_warning_empty">All field must filled all</string>
 </resources>

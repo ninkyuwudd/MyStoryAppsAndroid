@@ -3,6 +3,8 @@ package com.example.ui.regis
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -25,6 +27,10 @@ class RegisActivity : AppCompatActivity() {
     private lateinit var viewModel: AuthViewModel
 
     private lateinit var binding: ActivityRegisBinding
+
+    private var editTextName : EditText? = null
+    private var editTextEmail : EditText? = null
+    private  var editTextPass : EditText? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisBinding.inflate(layoutInflater)
@@ -32,6 +38,10 @@ class RegisActivity : AppCompatActivity() {
 
         val apiRepo = ApiRepository(ApiConfig.apiServiceGet(viewModelLogin.sessionGet().value?.token))
         viewModel = ViewModelProvider(this, AuthViewModelFactory(apiRepo))[AuthViewModel::class.java]
+
+        editTextName = binding.edRegisName
+        editTextEmail = binding.edLoginEmail
+        editTextPass = binding.edRegisPassword
 
 
         viewModel.liveDataResponse.observe(this,{
@@ -47,7 +57,13 @@ class RegisActivity : AppCompatActivity() {
 
 
         binding.buttonRegis.setOnClickListener {
-            viewModel.regis("wudd","wudd404@gmail.com","12345678")
+
+            if(editTextName?.text!!.isNotEmpty() && editTextEmail?.text!!.isNotEmpty() && editTextPass?.text!!.isNotEmpty()){
+                viewModel.regis(editTextName?.text.toString(),editTextEmail?.text.toString(),editTextPass?.text.toString())
+
+            }else{
+                binding.errorWarning.visibility = View.VISIBLE
+            }
         }
 
     }

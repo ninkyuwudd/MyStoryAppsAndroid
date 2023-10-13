@@ -164,16 +164,31 @@ class AddStoryActivity : AppCompatActivity() {
 
                     showLoading(false)
                 }
+
+
             }
 
-            val itn = Intent(this@AddStoryActivity,HomepageActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(itn)
+//            val itn = Intent(this@AddStoryActivity,HomepageActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//            startActivity(itn)
 
         } ?: showToast(getString(R.string.empty_image_warning))
 
+        val intent = Intent(this, HomepageActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
 
+        startActivity(intent)
+
+        finish()
+
+        onResume(token)
     }
+
+    private fun onResume(apiServ: ApiService) {
+        super.onResume()
+        apiServ.getStories()
+    }
+
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE

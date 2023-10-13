@@ -60,6 +60,7 @@ class LoginActivity : AppCompatActivity() {
                 Log.d("sessionGet",islogin.token)
                 val itn = Intent(this@LoginActivity, HomepageActivity::class.java)
                 startActivity(itn)
+                showLoading(false)
             }
         }
 
@@ -127,7 +128,6 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-
         binding.lgnButton.setOnClickListener {
 
             val email = editTextPass.text.toString()
@@ -140,19 +140,28 @@ class LoginActivity : AppCompatActivity() {
                 Log.d("condition","TOken kosong bro")
                 viewModel.sessionSave(AkunModel(email,""))
             }
-            AlertDialog.Builder(this).apply {
-                setTitle("Nice")
-                setMessage("Login Successfully!")
-                setPositiveButton("Next"){
-                    _,_ ->
-//                    val itn = Intent(this@LoginActivity,HomepageActivity::class.java)
-//                    itn.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//                    startActivity(itn)
-                    finish()
-                }
-                create()
-                show()
-            }
+            showLoading(true)
+//            AlertDialog.Builder(this).apply {
+//                setTitle("Nice")
+//                setMessage("Login Successfully!")
+//                setPositiveButton("Next"){
+//                    _,_ ->
+////                    val itn = Intent(this@LoginActivity,HomepageActivity::class.java)
+////                    itn.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+////                    startActivity(itn)
+//                    finish()
+//                }
+//                create()
+//                show()
+//            }
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
         }
     }
 }
