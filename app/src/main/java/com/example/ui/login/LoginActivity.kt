@@ -132,6 +132,9 @@ class LoginActivity : AppCompatActivity() {
 
             val email = editTextPass.text.toString()
             val pass = editTextPass.text.toString()
+
+
+            if(email.isNotEmpty() && pass.isNotEmpty()){
             viewModelApi.login(editTextEmail.text.toString(),editTextPass.text.toString())
 
             if (viewModelApi.liveDataResponseLogin.value?.body()?.loginResult?.token != null){
@@ -141,6 +144,11 @@ class LoginActivity : AppCompatActivity() {
                 viewModel.sessionSave(AkunModel(email,""))
             }
             showLoading(true)
+                binding.textView6.visibility = View.GONE
+
+            }else{
+                binding.textView6.visibility = View.VISIBLE
+            }
 //            AlertDialog.Builder(this).apply {
 //                setTitle("Nice")
 //                setMessage("Login Successfully!")

@@ -7,4 +7,7 @@
     <string name="empty_image_warning">the image is empty!</string>
     <string name="desk_hint">masukkan deskripsi gambar</string>
     <string name="error_warning_empty">All field must filled all</string>
+    <string name="enter_the_email">enter the email</string>
+    <string name="enter_your_password">enter your password</string>
+    <string name="story_can_t_be_empty">Story Can\'t be empty !</string>
 </resources>

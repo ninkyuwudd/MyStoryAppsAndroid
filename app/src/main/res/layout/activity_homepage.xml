@@ -21,7 +21,7 @@
             android:id="@+id/appbarid"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#FFC107"
+            android:background="@color/appbar"
             app:menu="@menu/menu_appbar"
             app:title="List All Story" />
 

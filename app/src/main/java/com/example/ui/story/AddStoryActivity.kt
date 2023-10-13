@@ -70,6 +70,8 @@ class AddStoryActivity : AppCompatActivity() {
 
 
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddStoryBinding.inflate(layoutInflater)
@@ -89,12 +91,15 @@ class AddStoryActivity : AppCompatActivity() {
         binding.btnOpenCamera.setOnClickListener {cameraStart()}
 
         binding.btnUpload.setOnClickListener {
+
             uploadImage(token = apiRepo, desk = edittext?.text.toString())
             Log.d("text_dari_textfield",edittext?.text.toString())
         }
 
 
     }
+
+
 
 
     private fun cameraStart() {
@@ -109,6 +114,8 @@ class AddStoryActivity : AppCompatActivity() {
             displayImage()
         }
     }
+
+
 
     private fun galleryStart() {
         galleryLaunch.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
@@ -142,6 +149,7 @@ class AddStoryActivity : AppCompatActivity() {
             val description = desk
 
             showLoading(true)
+            showLoadingCircle(true)
 
             val requestBody = description.toRequestBody("text/plain".toMediaType())
             val requestImageFile = imageFile.asRequestBody("image/jpeg".toMediaType())
@@ -156,6 +164,7 @@ class AddStoryActivity : AppCompatActivity() {
                     val successResponse = token.uploadImage(multipartBody,requestBody).awaitResponse().message()
                     showToast(successResponse)
                     showLoading(false)
+                    showLoadingCircle(false)
                 } catch (e: HttpException) {
                     val errorBody = e.response()?.errorBody()?.string()
                     val errorResponse = Gson().fromJson(errorBody, ResponseStoryUp::class.java)
@@ -163,25 +172,36 @@ class AddStoryActivity : AppCompatActivity() {
                     showToast(errorResponse.message.toString())
 
                     showLoading(false)
+                    showLoadingCircle(false)
                 }
 
 
             }
+            binding.errorEmptyStory.visibility = View.GONE
 
-//            val itn = Intent(this@AddStoryActivity,HomepageActivity::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//            startActivity(itn)
+            val intent = Intent(this, HomepageActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
 
-        } ?: showToast(getString(R.string.empty_image_warning))
+            startActivity(intent)
 
-        val intent = Intent(this, HomepageActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            finish()
 
-        startActivity(intent)
+            onResume(token)
 
-        finish()
+        } ?: makeVisible()
 
-        onResume(token)
+//        val intent = Intent(this, HomepageActivity::class.java)
+//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//
+//        startActivity(intent)
+//
+//        finish()
+//
+//        onResume(token)
+    }
+
+    private fun makeVisible(){
+        binding.errorEmptyStory.visibility = View.VISIBLE
     }
 
     private fun onResume(apiServ: ApiService) {
@@ -200,4 +220,14 @@ class AddStoryActivity : AppCompatActivity() {
     companion object {
         private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
     }
+
+
+    private fun showLoadingCircle(isLoading: Boolean) {
+        if (isLoading) {
+            binding.progressBar.visibility = View.VISIBLE
+        } else {
+            binding.progressBar.visibility = View.GONE
+        }
+    }
 }
+
