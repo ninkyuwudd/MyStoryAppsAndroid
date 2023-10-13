@@ -28,13 +28,15 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvListStory"
-        android:layout_width="409dp"
-        android:layout_height="665dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/card_for_item"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/card_for_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addBtn"

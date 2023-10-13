@@ -1,12 +1,14 @@
 package com.example.ui.story
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -21,8 +23,10 @@ import com.example.ourstoryapps.data.api.ApiService
 import com.example.ourstoryapps.data.model.ResponseStoryUp
 import com.example.ourstoryapps.databinding.ActivityAddStoryBinding
 import com.example.ourstoryapps.factory.ViewModelFactory
+import com.example.ui.homepage.HomepageActivity
 import com.example.ui.login.LoginViewModel
 import com.example.utils.getImageUri
+import com.example.utils.reduceFileImage
 import com.example.utils.uriToFile
 import com.google.gson.Gson
 import kotlinx.coroutines.launch
@@ -45,6 +49,7 @@ class AddStoryActivity : AppCompatActivity() {
 
     private var imgUri: Uri? = null
 
+    private var edittext :EditText? = null
     private val requestPermissionLauncher =
         registerForActivityResult(
             ActivityResultContracts.RequestPermission()
@@ -77,13 +82,16 @@ class AddStoryActivity : AppCompatActivity() {
         }
 
 
-
+        edittext = binding.deskField
 
         binding.btnOpenGallery.setOnClickListener { galleryStart() }
 
         binding.btnOpenCamera.setOnClickListener {cameraStart()}
 
-        binding.btnUpload.setOnClickListener { uploadImage(token = apiRepo) }
+        binding.btnUpload.setOnClickListener {
+            uploadImage(token = apiRepo, desk = edittext?.text.toString())
+            Log.d("text_dari_textfield",edittext?.text.toString())
+        }
 
 
     }
@@ -127,11 +135,11 @@ class AddStoryActivity : AppCompatActivity() {
 
 
 
-    private fun uploadImage(token:ApiService) {
+    private fun uploadImage(token:ApiService,desk:String) {
         imgUri?.let { uri ->
-            val imageFile = uriToFile(uri, this)
+            val imageFile = uriToFile(uri, this).reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")
-            val description = "Ini adalah deksripsi gambar"
+            val description = desk
 
             showLoading(true)
 
@@ -158,7 +166,13 @@ class AddStoryActivity : AppCompatActivity() {
                 }
             }
 
+            val itn = Intent(this@AddStoryActivity,HomepageActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(itn)
+
         } ?: showToast(getString(R.string.empty_image_warning))
+
+
     }
 
     private fun showLoading(isLoading: Boolean) {

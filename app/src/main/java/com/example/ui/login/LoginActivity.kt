@@ -9,9 +9,11 @@ import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
+import com.example.ourstoryapps.customview.customPassCheck
 import com.example.ourstoryapps.factory.ViewModelFactory
 import com.example.ourstoryapps.data.AkunModel
 import com.example.ourstoryapps.data.AuthViewModel
@@ -29,6 +31,8 @@ class LoginActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
 
+    private lateinit var editTextEmail :EditText
+    private lateinit  var editTextPass:EditText
 
 
     private lateinit var viewModelApi: AuthViewModel
@@ -38,6 +42,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        editTextEmail = binding.edLoginEmail
+        editTextPass = binding.edLoginPassword
 
         viewSetup()
         actionSetup()
@@ -116,10 +124,15 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun actionSetup(){
-        binding.lgnButton.setOnClickListener {
-            val email = binding.edLoginEmail.text.toString()
 
-            viewModelApi.login("wudd404@gmail.com","12345678")
+
+
+
+        binding.lgnButton.setOnClickListener {
+
+            val email = editTextPass.text.toString()
+            val pass = editTextPass.text.toString()
+            viewModelApi.login(editTextEmail.text.toString(),editTextPass.text.toString())
 
             if (viewModelApi.liveDataResponseLogin.value?.body()?.loginResult?.token != null){
                 viewModel.sessionSave(AkunModel(email,viewModelApi.liveDataResponseLogin.value!!.body()!!.loginResult!!.token!!))
