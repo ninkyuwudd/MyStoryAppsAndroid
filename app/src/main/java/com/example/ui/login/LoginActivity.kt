@@ -1,5 +1,6 @@
 package com.example.ui.login
 
+import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
@@ -78,8 +79,9 @@ class LoginActivity : AppCompatActivity() {
                 viewModel.sessionSave(AkunModel(email,token.toString()))
                 val itn = Intent(this@LoginActivity, HomepageActivity::class.java)
                 startActivity(itn)
-            }else{
                 showLoading(false)
+            }else{
+                showLoading(true)
             }
         }
 
@@ -108,9 +110,16 @@ class LoginActivity : AppCompatActivity() {
             repeatMode = ObjectAnimator.REVERSE
         }.start()
 
+        val login = ObjectAnimator.ofFloat(binding.textInputLayout2,View.ALPHA, 1f).setDuration(100)
+        val title = ObjectAnimator.ofFloat(binding.textView2,View.ALPHA,1f).setDuration(100)
 
-
+        AnimatorSet().apply {
+            playSequentially(login,title)
+            start()
+        }
     }
+
+
 
 
     private fun viewSetup(){

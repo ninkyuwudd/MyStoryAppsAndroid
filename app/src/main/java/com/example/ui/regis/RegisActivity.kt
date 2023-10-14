@@ -41,9 +41,9 @@ class RegisActivity : AppCompatActivity() {
         val apiRepo = ApiRepository(ApiConfig.apiServiceGet(viewModelLogin.sessionGet().value?.token))
         viewModel = ViewModelProvider(this, AuthViewModelFactory(apiRepo))[AuthViewModel::class.java]
 
-        editTextName = binding.edRegisName
-        editTextEmail = binding.edLoginEmail
-        editTextPass = binding.edRegisPassword
+        editTextName = binding.edRegisterName
+        editTextEmail = binding.edRegisterEmail
+        editTextPass = binding.edRegisterPassword
 
 
         viewModel.liveDataResponse.observe(this,{

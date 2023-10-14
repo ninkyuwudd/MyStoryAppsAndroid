@@ -56,8 +56,8 @@ class DetailActivity : AppCompatActivity() {
 
     private fun setDetailItem(dataItem:Story){
         Log.d("data",dataItem.name.toString())
-        binding.titleDetail.text = dataItem.name
-        binding.detaiText.text = dataItem.description
-        Picasso.get().load(dataItem.photoUrl).into(binding.imageDetail)
+        binding.tvDetailName.text = dataItem.name
+        binding.tvDetailDescription.text = dataItem.description
+        Picasso.get().load(dataItem.photoUrl).into(binding.ivDetailPhoto)
     }
 }

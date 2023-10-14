@@ -31,10 +31,10 @@ class HomePageAdapter : ListAdapter<ListStoryItem, TheViewHolder>(DIFF_CALLBACK)
         fun bind(review: ListStoryItem){
             val ctx = binding.root.context
 
-            binding.titleCard.text = "${review.name}"
+            binding.tvItemName.text = "${review.name}"
             binding.deskCard.text = "${review.description}"
 //            binding.itemText.text = "${review.login}"
-            Picasso.get().load(review.photoUrl).into(binding.imageCard)
+            Picasso.get().load(review.photoUrl).into(binding.ivItemPhoto)
 
             binding.cardItemStory.setOnClickListener {
 

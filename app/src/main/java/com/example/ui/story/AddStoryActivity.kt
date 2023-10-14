@@ -84,19 +84,26 @@ class AddStoryActivity : AppCompatActivity() {
         }
 
 
-        edittext = binding.deskField
+        edittext = binding.edAddDescription
 
         binding.btnOpenGallery.setOnClickListener { galleryStart() }
 
         binding.btnOpenCamera.setOnClickListener {cameraStart()}
 
         binding.btnUpload.setOnClickListener {
+            if(edittext?.text != null && edittext?.text.toString() != ""){
+                uploadImage(token = apiRepo, desk = edittext?.text.toString())
+                Log.d("text_dari_textfield",edittext?.text.toString())
+            }else{
+                showToast("Desctiption can't be empty!")
+            }
 
-            uploadImage(token = apiRepo, desk = edittext?.text.toString())
-            Log.d("text_dari_textfield",edittext?.text.toString())
         }
 
-        binding.backBtn.setOnClickListener { onBackPressed() }
+        binding.backBtn.setOnClickListener {
+
+
+            onBackPressed() }
 
 
     }
@@ -145,6 +152,7 @@ class AddStoryActivity : AppCompatActivity() {
 
 
     private fun uploadImage(token:ApiService,desk:String) {
+        val itn = Intent(this, HomepageActivity::class.java)
         imgUri?.let { uri ->
             val imageFile = uriToFile(uri, this).reduceFileImage()
             Log.d("Image File", "showImage: ${imageFile.path}")
@@ -167,6 +175,19 @@ class AddStoryActivity : AppCompatActivity() {
                     showToast(successResponse)
                     showLoading(false)
                     showLoadingCircle(false)
+
+                    if(successResponse != "Bad Request"){
+
+                        itn.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+
+                        startActivity(itn)
+
+                        finish()
+
+                        onResume(token)
+                    }
+
+
                 } catch (e: HttpException) {
                     val errorBody = e.response()?.errorBody()?.string()
                     val errorResponse = Gson().fromJson(errorBody, ResponseStoryUp::class.java)
@@ -181,25 +202,11 @@ class AddStoryActivity : AppCompatActivity() {
             }
             binding.errorEmptyStory.visibility = View.GONE
 
-//            val intent = Intent(this, HomepageActivity::class.java)
-//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//
-//            startActivity(intent)
-//
-//            finish()
-//
-//            onResume(token)
+
 
         } ?: makeVisible()
 
-//        val intent = Intent(this, HomepageActivity::class.java)
-//        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-//
-//        startActivity(intent)
-//
-//        finish()
-//
-//        onResume(token)
+
     }
 
     private fun makeVisible(){

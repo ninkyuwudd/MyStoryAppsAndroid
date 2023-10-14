@@ -21,7 +21,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/image_card"
+            android:id="@+id/iv_item_photo"
             android:layout_width="match_parent"
             android:layout_height="200dp"
 
@@ -42,10 +42,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_card">
+            app:layout_constraintTop_toBottomOf="@+id/iv_item_photo">
 
             <TextView
-                android:id="@+id/title_card"
+                android:id="@+id/tv_item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -75,7 +75,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.013"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title_card"
+                app:layout_constraintTop_toBottomOf="@+id/tv_item_name"
                 app:layout_constraintVertical_bias="0.0" />
 
 
@@ -84,11 +84,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/baseline_thumb_up_alt_24"
-                app:layout_constraintBottom_toBottomOf="@+id/title_card"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_item_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.666"
-                app:layout_constraintStart_toEndOf="@+id/title_card"
-                app:layout_constraintTop_toTopOf="@+id/title_card"
+                app:layout_constraintStart_toEndOf="@+id/tv_item_name"
+                app:layout_constraintTop_toTopOf="@+id/tv_item_name"
                 app:layout_constraintVertical_bias="0.0" />
 
 
