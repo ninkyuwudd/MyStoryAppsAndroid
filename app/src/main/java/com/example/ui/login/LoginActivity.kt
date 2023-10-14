@@ -72,12 +72,14 @@ class LoginActivity : AppCompatActivity() {
         viewModelApi.liveDataResponseLogin.observe(this){
             getToken:Response<ResponseLogin> ->
             if(getToken.body()?.loginResult?.token != null){
-                val email = "wudd404@gmail.com"
+                val email = editTextEmail.text.toString()
                 val token = getToken.body()!!.loginResult!!.token
                 Log.d("condition",token.toString())
                 viewModel.sessionSave(AkunModel(email,token.toString()))
                 val itn = Intent(this@LoginActivity, HomepageActivity::class.java)
                 startActivity(itn)
+            }else{
+                showLoading(false)
             }
         }
 

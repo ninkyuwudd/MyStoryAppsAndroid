@@ -96,6 +96,8 @@ class AddStoryActivity : AppCompatActivity() {
             Log.d("text_dari_textfield",edittext?.text.toString())
         }
 
+        binding.backBtn.setOnClickListener { onBackPressed() }
+
 
     }
 
@@ -179,14 +181,14 @@ class AddStoryActivity : AppCompatActivity() {
             }
             binding.errorEmptyStory.visibility = View.GONE
 
-            val intent = Intent(this, HomepageActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-
-            startActivity(intent)
-
-            finish()
-
-            onResume(token)
+//            val intent = Intent(this, HomepageActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//
+//            startActivity(intent)
+//
+//            finish()
+//
+//            onResume(token)
 
         } ?: makeVisible()
 
