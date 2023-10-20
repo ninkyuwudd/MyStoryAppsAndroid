@@ -66,7 +66,7 @@
         android:id="@+id/btnOpenGallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="galery"
+        android:text="@string/galery"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.221"
@@ -78,7 +78,7 @@
         android:id="@+id/btnOpenCamera"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="camera"
+        android:text="@string/camera"
         app:layout_constraintBottom_toBottomOf="@+id/btnOpenGallery"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnOpenGallery"
@@ -90,13 +90,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:text="submit"
+        android:text="@string/submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnOpenCamera"
-        app:layout_constraintVertical_bias="0.337" />
+        app:layout_constraintVertical_bias="0.337"
+        tools:ignore="VisualLintButtonSize" />
 
 
     <ProgressBar

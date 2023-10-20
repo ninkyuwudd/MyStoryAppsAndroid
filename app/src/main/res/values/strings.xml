@@ -11,4 +11,10 @@
     <string name="enter_your_password">enter your password</string>
     <string name="story_can_t_be_empty">Story Can\'t be empty !</string>
     <string name="login">Login</string>
+    <string name="logi_image_animation">logi image animation</string>
+    <string name="camera">camera</string>
+    <string name="galery">galery</string>
+    <string name="submit">submit</string>
+    <string name="maps_icon">maps</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

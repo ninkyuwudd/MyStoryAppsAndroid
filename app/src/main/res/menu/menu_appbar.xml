@@ -4,11 +4,18 @@
 
     <group android:menuCategory="container">
         <item
+            android:id="@+id/mapsIcon"
+            android:icon="@drawable/baseline_map_24"
+            app:showAsAction="ifRoom"
+            android:title="@string/maps_icon"
+            />
+        <item
             android:id="@+id/lgIcon"
             android:icon="@drawable/baseline_logout_24"
             app:showAsAction="ifRoom"
             android:title="@string/logout_title"
             />
+
 
     </group>
 </menu>

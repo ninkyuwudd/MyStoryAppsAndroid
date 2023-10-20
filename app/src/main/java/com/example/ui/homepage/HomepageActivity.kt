@@ -22,6 +22,7 @@ import com.example.ourstoryapps.factory.ViewModelFactory
 import com.example.ourstoryapps.databinding.ActivityHomepageBinding
 import com.example.ourstoryapps.factory.AuthViewModelFactory
 import com.example.ui.login.LoginViewModel
+import com.example.ui.maps.MapsActivity
 import com.example.ui.story.AddStoryActivity
 import retrofit2.Response
 
@@ -105,15 +106,16 @@ class HomepageActivity : AppCompatActivity() {
 
     private fun logoutBtnFunction(){
 
-
-
-
         binding.appbarid.setOnMenuItemClickListener{
             menuitem ->
             when(menuitem.itemId){
                 R.id.lgIcon -> {
-                    Log.d("testing","clicked lgout")
                     viewModel.logOut()
+                    true
+                }
+                R.id.mapsIcon -> {
+                    val itn = Intent(this,MapsActivity::class.java)
+                    startActivity(itn)
                     true
                 }
                 else -> false

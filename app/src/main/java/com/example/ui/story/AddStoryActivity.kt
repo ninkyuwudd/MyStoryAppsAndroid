@@ -1,8 +1,7 @@
 package com.example.ui.story
 
-import android.Manifest
+
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,12 +12,9 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.ourstoryapps.R
 import com.example.ourstoryapps.data.AkunModel
 import com.example.ourstoryapps.data.api.ApiConfig
-import com.example.ourstoryapps.data.api.ApiRepository
 import com.example.ourstoryapps.data.api.ApiService
 import com.example.ourstoryapps.data.model.ResponseStoryUp
 import com.example.ourstoryapps.databinding.ActivityAddStoryBinding
@@ -37,6 +33,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.HttpException
 import retrofit2.awaitResponse
 
+@Suppress("DEPRECATION")
 class AddStoryActivity : AppCompatActivity() {
 
     private val viewModelLogin by viewModels<LoginViewModel> {
@@ -45,27 +42,23 @@ class AddStoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddStoryBinding
 
-//    private var currentImageUri: Uri? = null
+
 
     private var imgUri: Uri? = null
 
     private var edittext :EditText? = null
-    private val requestPermissionLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { isGranted: Boolean ->
-            if (isGranted) {
-                Toast.makeText(this, "Permission request granted", Toast.LENGTH_LONG).show()
-            } else {
-                Toast.makeText(this, "Permission request denied", Toast.LENGTH_LONG).show()
-            }
-        }
+//    private val requestPermissionLauncher =
+//        registerForActivityResult(
+//            ActivityResultContracts.RequestPermission()
+//        ) { isGranted: Boolean ->
+//            if (isGranted) {
+//                Toast.makeText(this, "Permission request granted", Toast.LENGTH_LONG).show()
+//            } else {
+//                Toast.makeText(this, "Permission request denied", Toast.LENGTH_LONG).show()
+//            }
+//        }
 
-    private fun allPermissionsGranted() =
-        ContextCompat.checkSelfPermission(
-            this,
-            REQUIRED_PERMISSION
-        ) == PackageManager.PERMISSION_GRANTED
+
 
 
 
@@ -101,7 +94,6 @@ class AddStoryActivity : AppCompatActivity() {
         }
 
         binding.backBtn.setOnClickListener {
-
 
             onBackPressed() }
 
@@ -226,9 +218,7 @@ class AddStoryActivity : AppCompatActivity() {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    companion object {
-        private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
-    }
+
 
 
     private fun showLoadingCircle(isLoading: Boolean) {

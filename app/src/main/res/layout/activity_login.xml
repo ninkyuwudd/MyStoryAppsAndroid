@@ -11,6 +11,7 @@
 
     <ImageView
         android:id="@+id/title_login_image"
+        android:contentDescription="@string/logi_image_animation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/logo_title"
@@ -77,7 +78,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/ed_login_email"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                tools:ignore="VisualLintTextFieldSize" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,17 +101,12 @@
             app:passwordToggleEnabled="true"
             app:startIconDrawable="@drawable/baseline_lock_24">
 
-            <!--        <com.google.android.material.textfield.TextInputEditText-->
-            <!--            android:id="@+id/login_pass_field"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="match_parent"-->
-            <!--            android:ems="15"-->
-            <!--            android:inputType="textPassword" />-->
 
             <com.example.ourstoryapps.customview.customPassCheck
                 android:id="@+id/ed_login_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                tools:ignore="TouchTargetSizeCheck,VisualLintTextFieldSize" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
