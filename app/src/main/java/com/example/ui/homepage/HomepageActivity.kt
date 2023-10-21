@@ -115,7 +115,15 @@ class HomepageActivity : AppCompatActivity() {
                 }
                 R.id.mapsIcon -> {
                     val itn = Intent(this,MapsActivity::class.java)
-                    startActivity(itn)
+                    viewModelToken.sessionGet().observe(this){
+                            islogin:AkunModel ->
+                        if(islogin.token != ""){
+                            itn.putExtra("token",islogin.token)
+                            startActivity(itn)
+                        }
+
+                    }
+
                     true
                 }
                 else -> false

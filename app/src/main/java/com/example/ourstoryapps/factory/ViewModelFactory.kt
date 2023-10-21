@@ -7,6 +7,7 @@ import com.example.ourstoryapps.data.AkunRepository
 import com.example.ui.homepage.HomepageViewModel
 import com.example.ourstoryapps.injection.Injection
 import com.example.ui.login.LoginViewModel
+import com.example.ui.maps.MapsViewModel
 
 class ViewModelFactory(private val repository: AkunRepository): ViewModelProvider.NewInstanceFactory() {
 
@@ -18,6 +19,9 @@ class ViewModelFactory(private val repository: AkunRepository): ViewModelProvide
             }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(MapsViewModel::class.java) -> {
+                MapsViewModel() as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }
