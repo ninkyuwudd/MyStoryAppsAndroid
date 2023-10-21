@@ -7,11 +7,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.ourstoryapps.data.AkunModel
 import com.example.ourstoryapps.data.AkunRepository
 import com.example.ourstoryapps.data.api.ApiConfig
 import com.example.ourstoryapps.data.model.ListStoryItem
 import com.example.ourstoryapps.data.model.ResponseStory
+import com.example.ourstoryapps.data.paging.OurStoryPaggingSourceRepository
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.Call
@@ -21,6 +24,9 @@ class HomepageViewModel(private val repository: AkunRepository): ViewModel() {
 
     private val _listStory = MutableLiveData<List<ListStoryItem>>()
     val listOurStory : LiveData<List<ListStoryItem>> = _listStory
+
+    val storyPagging: LiveData<PagingData<ListStoryItem>> =
+        repository.getStory().cachedIn(viewModelScope)
 
 
     fun fetchDataStory(token: String){

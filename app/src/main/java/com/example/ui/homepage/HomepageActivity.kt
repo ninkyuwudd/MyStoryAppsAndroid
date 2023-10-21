@@ -88,7 +88,7 @@ class HomepageActivity : AppCompatActivity() {
 
 
         viewModel.listOurStory.observe(this){
-                username -> setStoryData(username)
+                username -> setStoryData()
         }
 
         val apiRepo = ApiRepository(ApiConfig.apiServiceGet(viewModel.sessionGet().value?.token))
@@ -96,11 +96,20 @@ class HomepageActivity : AppCompatActivity() {
         logoutBtnFunction()
     }
 
-    private fun setStoryData(usernameData:List<ListStoryItem>){
+
+    private fun setStoryData(){
         val adapter = HomePageAdapter()
-        adapter.submitList(usernameData)
         binding.rvListStory.adapter = adapter
+        viewModel.storyPagging.observe(this,{
+            adapter.submitData(lifecycle,it)
+        })
     }
+
+//    private fun setStoryData(usernameData:List<ListStoryItem>){
+//        val adapter = HomePageAdapter()
+//        adapter.submitList(usernameData)
+//        binding.rvListStory.adapter = adapter
+//    }
 
 
 

@@ -6,6 +6,7 @@ import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,7 @@ import com.example.ourstoryapps.databinding.CardForItemBinding
 import com.example.ui.homepage.HomePageAdapter.TheViewHolder
 import com.squareup.picasso.Picasso
 
-class HomePageAdapter : ListAdapter<ListStoryItem, TheViewHolder>(DIFF_CALLBACK) {
+class HomePageAdapter : PagingDataAdapter<ListStoryItem, TheViewHolder>(DIFF_CALLBACK) {
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListStoryItem>() {
             override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
@@ -52,7 +53,7 @@ class HomePageAdapter : ListAdapter<ListStoryItem, TheViewHolder>(DIFF_CALLBACK)
     }
 
     override fun onBindViewHolder(holder: TheViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position)!!)
     }
 
 }

@@ -65,4 +65,11 @@ interface ApiService {
         @Query("location") location : Int = 1,
     ): Call<ResponseStory>
 
+
+    @GET("stories")
+    suspend fun getStoriesPagging(
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 20
+    ): ResponseStory
+
 }
