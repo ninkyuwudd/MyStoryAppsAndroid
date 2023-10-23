@@ -40,7 +40,7 @@ class HomepageViewModelTest {
     @Mock private lateinit var AkunStoryRepository: AkunRepository
 
     @Test
-    fun `when Get Quote Should Not Null and Return Data`() = runTest {
+    fun `when Get Pagging Story Should Not Null and Return Data`() = runTest {
 
 
         val dummyQuote = DataDummy.generateDummyQuoteResponse()
@@ -69,7 +69,7 @@ class HomepageViewModelTest {
     }
 
     @Test
-    fun `when Get Quote Empty Should Return No Data`() = runTest {
+    fun `when Get Pagging Story Empty Should Return No Data`() = runTest {
         val data: PagingData<ListStoryItem> = PagingData.from(emptyList())
         val expectedQuote = MutableLiveData<PagingData<ListStoryItem>>()
         expectedQuote.value = data
