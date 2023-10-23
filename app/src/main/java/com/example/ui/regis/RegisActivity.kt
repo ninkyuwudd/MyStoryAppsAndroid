@@ -3,13 +3,10 @@ package com.example.ui.regis
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.EditText
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.ourstoryapps.R
 import com.example.ourstoryapps.data.AuthViewModel
 import com.example.ourstoryapps.data.api.ApiConfig
 import com.example.ourstoryapps.data.api.ApiRepository
@@ -46,20 +43,19 @@ class RegisActivity : AppCompatActivity() {
         editTextPass = binding.edRegisterPassword
 
 
-        viewModel.liveDataResponse.observe(this,{
-            response ->
+        viewModel.liveDataResponse.observe(this) { response ->
 
-            if (response.isSuccessful){
-                val body = response.body()
-                Log.d("sscess","success response cuy")
+            if (response.isSuccessful) {
+//                val body = response.body()
+//                Log.d("sscess","success response cuy")
                 onBackPressed()
-            }else{
-                val error = response.errorBody()
+            } else {
+//                val error = response.errorBody()
                 showLoading(false)
 //                binding.errorWarning.text = "User already exists or wrong data!"
 //                binding.errorWarning.visibility =View.VISIBLE
             }
-        })
+        }
 
 
         binding.buttonRegis.setOnClickListener {

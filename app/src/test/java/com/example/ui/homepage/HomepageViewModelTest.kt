@@ -1,8 +1,6 @@
 package com.example.ui.homepage
 
-import android.content.ContentValues
-import android.content.ContentValues.TAG
-import android.util.Log
+
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -24,7 +22,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.mockito.junit.MockitoJUnitRunner
 
@@ -47,7 +44,7 @@ class HomepageViewModelTest {
         val data: PagingData<ListStoryItem> = StoryOurPagingSource.snapshot(dummyQuote)
         val expectedQuote = MutableLiveData<PagingData<ListStoryItem>>()
         expectedQuote.value = data
-        Mockito.`when`(AkunStoryRepository.getStory()).thenReturn(expectedQuote)
+        `when`(AkunStoryRepository.getStory()).thenReturn(expectedQuote)
 
         val mainViewModel = HomepageViewModel(AkunStoryRepository)
         val actualQuote: PagingData<ListStoryItem> = mainViewModel.storyPagging.getOrAwaitValue()
@@ -73,7 +70,7 @@ class HomepageViewModelTest {
         val data: PagingData<ListStoryItem> = PagingData.from(emptyList())
         val expectedQuote = MutableLiveData<PagingData<ListStoryItem>>()
         expectedQuote.value = data
-        Mockito.`when`(AkunStoryRepository.getStory()).thenReturn(expectedQuote)
+        `when`(AkunStoryRepository.getStory()).thenReturn(expectedQuote)
 
         val mainViewModel = HomepageViewModel(AkunStoryRepository)
         val actualQuote: PagingData<ListStoryItem> = mainViewModel.storyPagging.getOrAwaitValue()

@@ -11,7 +11,7 @@ android {
     testOptions {
         unitTests.isReturnDefaultValues = true
     }
-
+ 
     defaultConfig {
         applicationId = "com.example.ourstoryapps"
         minSdk = 28

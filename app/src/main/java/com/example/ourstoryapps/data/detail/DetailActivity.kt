@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
-import com.example.ourstoryapps.R
 import com.example.ourstoryapps.data.AkunModel
 import com.example.ourstoryapps.data.model.Story
 import com.example.ourstoryapps.databinding.ActivityDetailBinding

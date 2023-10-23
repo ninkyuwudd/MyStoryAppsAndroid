@@ -25,6 +25,7 @@
 <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
     <ImageView
         android:id="@+id/imgPreview"
+        android:contentDescription="@string/imgpreview"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
@@ -129,6 +130,7 @@
 
         <ImageView
             android:id="@+id/backBtn"
+            android:contentDescription="@string/back_button"
             android:layout_width="19dp"
             android:layout_height="21dp"
             android:layout_marginTop="16dp"
@@ -146,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Add Our Story"
+            android:text="@string/add_our_story"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/backBtn"
             app:layout_constraintEnd_toEndOf="parent"

@@ -3,8 +3,6 @@ package com.example.ui.homepage
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -15,16 +13,12 @@ import com.example.ourstoryapps.data.AkunModel
 import com.example.ourstoryapps.data.AuthViewModel
 import com.example.ourstoryapps.data.api.ApiConfig
 import com.example.ourstoryapps.data.api.ApiRepository
-import com.example.ourstoryapps.data.model.ListStoryItem
-import com.example.ourstoryapps.data.model.ResponseLogin
-import com.example.ourstoryapps.databinding.ActivityAddStoryBinding
 import com.example.ourstoryapps.factory.ViewModelFactory
 import com.example.ourstoryapps.databinding.ActivityHomepageBinding
 import com.example.ourstoryapps.factory.AuthViewModelFactory
 import com.example.ui.login.LoginViewModel
 import com.example.ui.maps.MapsActivity
 import com.example.ui.story.AddStoryActivity
-import retrofit2.Response
 
 
 class HomepageActivity : AppCompatActivity() {
@@ -38,7 +32,7 @@ class HomepageActivity : AppCompatActivity() {
 
     private lateinit var viewModelApi: AuthViewModel
 
-    private lateinit var thetoken : String
+
 
 
     private lateinit var storyAdapter : HomePageAdapter
@@ -139,15 +133,5 @@ class HomepageActivity : AppCompatActivity() {
             }
         }
 
-//        binding.testbtn.setOnClickListener {
-//            Log.d("getToken",
-//                thetoken
-//            )
-//        }
-//
-//        binding.logoutbtn.setOnClickListener {
-//            Log.d("testing","clicked lgout")
-//            viewModel.logOut()
-//        }
     }
 }

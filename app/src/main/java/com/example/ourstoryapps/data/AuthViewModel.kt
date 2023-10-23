@@ -1,5 +1,6 @@
 package com.example.ourstoryapps.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,7 +25,7 @@ class AuthViewModel(private val apiRepository: ApiRepository) : ViewModel() {
                 val theResponse = apiRepository.register(name,email,password)
                 _liveDataResponse.value = theResponse
             }catch (e:Exception){
-
+                Log.e("error",e.toString())
             }
         }
     }
@@ -36,7 +37,7 @@ class AuthViewModel(private val apiRepository: ApiRepository) : ViewModel() {
                 val theResponse = apiRepository.login(email,password)
                 _liveDataResponseLogin.value = theResponse
             }catch (e:Exception){
-
+                Log.e("error",e.toString())
             }
         }
     }

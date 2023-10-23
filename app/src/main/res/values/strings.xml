@@ -17,4 +17,15 @@
     <string name="submit">submit</string>
     <string name="maps_icon">maps</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="imgpreview">imgPreview</string>
+    <string name="back_button">Back Button</string>
+    <string name="add_our_story">Add Our Story</string>
+    <string name="detail_photo">detail photo</string>
+    <string name="testingText">nice</string>
+    <string name="textview">TextView</string>
+    <string name="detail_story">Detail Story</string>
+    <string name="register">Register</string>
+    <string name="item_photo">item photo</string>
+    <string name="title">Title</string>
+    <string name="desc">desc</string>
 </resources>

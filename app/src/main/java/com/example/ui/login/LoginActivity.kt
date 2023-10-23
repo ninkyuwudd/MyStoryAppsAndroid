@@ -12,9 +12,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.EditText
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
-import com.example.ourstoryapps.customview.customPassCheck
 import com.example.ourstoryapps.factory.ViewModelFactory
 import com.example.ourstoryapps.data.AkunModel
 import com.example.ourstoryapps.data.AuthViewModel
@@ -55,15 +53,15 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-        viewModel.sessionGet().observe(this){
-            islogin:AkunModel ->
-            if(islogin.loginState && islogin.token != ""){
-                Log.d("sessionGet",islogin.token)
-                val itn = Intent(this@LoginActivity, HomepageActivity::class.java)
-                startActivity(itn)
-                showLoading(false)
-            }
-        }
+//        viewModel.sessionGet().observe(this){
+//            islogin:AkunModel ->
+//            if(islogin.loginState && islogin.token != ""){
+//                Log.d("sessionGet",islogin.token)
+//                val itn = Intent(this@LoginActivity, HomepageActivity::class.java)
+//                startActivity(itn)
+//                showLoading(false)
+//            }
+//        }
 
 
 
@@ -78,6 +76,7 @@ class LoginActivity : AppCompatActivity() {
                 Log.d("condition",token.toString())
                 viewModel.sessionSave(AkunModel(email,token.toString()))
                 val itn = Intent(this@LoginActivity, HomepageActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(itn)
                 showLoading(false)
             }else{
@@ -85,17 +84,17 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        viewModelApi.liveDataResponse.observe(this,{
-                response ->
-
-            if (response.isSuccessful){
-                val body = response.body()
-                Log.d("sscess","success response cuy")
-
-            }else{
-                val error = response.errorBody()
-            }
-        })
+//        viewModelApi.liveDataResponse.observe(this,{
+//                response ->
+//
+//            if (response.isSuccessful){
+//                val body = response.body()
+//                Log.d("sscess","success response cuy")
+//
+//            }else{
+//                val error = response.errorBody()
+//            }
+//        })
 
 
 
