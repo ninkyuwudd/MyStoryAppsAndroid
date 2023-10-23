@@ -2,6 +2,7 @@ package com.example.ourstoryapps.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import androidx.recyclerview.widget.ListUpdateCallback
 import com.example.ourstoryapps.data.api.ApiService
 import com.example.ourstoryapps.data.model.ListStoryItem
 
@@ -34,4 +35,11 @@ class OurStoryPaggingSource(private val apiService: ApiService) : PagingSource<I
         }
     }
 
+}
+
+val listUpdateCallback = object : ListUpdateCallback {
+    override fun onInserted(position: Int, count: Int) {}
+    override fun onRemoved(position: Int, count: Int) {}
+    override fun onMoved(fromPosition: Int, toPosition: Int) {}
+    override fun onChanged(position: Int, count: Int, payload: Any?) {}
 }

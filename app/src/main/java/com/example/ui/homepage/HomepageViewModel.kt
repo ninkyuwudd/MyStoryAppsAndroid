@@ -22,6 +22,7 @@ import retrofit2.Response
 
 class HomepageViewModel(private val repository: AkunRepository): ViewModel() {
 
+
     private val _listStory = MutableLiveData<List<ListStoryItem>>()
     val listOurStory : LiveData<List<ListStoryItem>> = _listStory
 
@@ -37,6 +38,7 @@ class HomepageViewModel(private val repository: AkunRepository): ViewModel() {
                 if(response.isSuccessful){
                     _listStory.value = response.body()?.listStory
                 }else{
+
                     Log.e(ContentValues.TAG,"onFilurecuy ${response.message()}")
                 }
             }
